@@ -12,8 +12,14 @@ import BudgetItem from "../components/BudgetItem";
 import Table from "../components/Table";
 
 //  helper functions
-import { createBudget, createExpense, exportToCsv, exportExpensesToCSV, fetchData, waait } from "../helpers";
-
+import {
+  createBudget,
+  createExpense,
+  exportToCsv,
+  exportExpensesToCSV,
+  fetchData,
+  waait,
+} from "../helpers";
 
 // loader
 export function dashboardLoader() {
@@ -98,16 +104,6 @@ const Dashboard = () => {
                   ))}
                 </div>
 
-                {/* Export Budgets to CSV button */}
-                <div className="grid-sm">
-                  <button 
-                    className="btn btn--dark" 
-                    onClick={handleExportBudgets}
-                  >
-                    Export Budgets to CSV
-                  </button>
-                </div>
-
                 {expenses && expenses.length > 0 && (
                   <div className="grid-md">
                     <h2>Recent Expenses</h2>
@@ -116,19 +112,39 @@ const Dashboard = () => {
                         .sort((a, b) => b.createdAt - a.createdAt)
                         .slice(0, 8)}
                     />
-                    {expenses.length > 8 && (
-                      <div className="flex-sm">
-                        <Link to="expenses" className="btn btn--dark">
+
+                    {expenses.length > 6 && (
+                      <div
+                        style={{
+                          display: "flex",
+                          justifyContent: "center",
+                          marginTop: "0.5rem",
+                        }}
+                      >
+                        <Link
+                          to="expenses"
+                          className="btn btn--dark"
+                          style={{
+                            fontSize: "0.875rem",
+                            padding: "0.4rem 0.8rem",
+                          }}
+                        >
                           View all expenses
                         </Link>
-                        <button 
-                          className="btn btn--dark" 
-                          onClick={() => exportExpensesToCSV(expenses)}
-                        >
-                          Export Expenses to CSV
-                        </button>
                       </div>
                     )}
+                    {/* Export Budgets to CSV button */}
+                    <div  className="grid-sm" style={{
+                          display: "flex",
+                          justifyContent: "center",
+                        }}>
+                      <button
+                        className="btn btn--dark"
+                        onClick={handleExportBudgets}
+                      >
+                        Export Budgets to CSV
+                      </button>
+                    </div>
                   </div>
                 )}
               </div>
@@ -148,148 +164,4 @@ const Dashboard = () => {
   );
 };
 
-// const Dashboard = () => {
-//   const { userName, budgets, expenses } = useLoaderData();
-
-//   const handleExportBudgets = () => {
-//     if (budgets && budgets.length > 0) {
-//       exportToCsv(budgets);
-//     } else {
-//       toast.warn("No budgets to export");
-//     }
-//   };
-
-//   return (
-//     <>
-//       {userName ? (
-//         <div className="dashboard">
-//           <h1>
-//             Welcome back, <span className="accent">{userName}</span>
-//           </h1>
-//           <div className="grid-sm">
-//             {budgets && budgets.length > 0 ? (
-//               <div className="grid-lg">
-//                 <div className="flex-lg">
-//                   <AddBudgetForm />
-//                   <AddExpenseForm budgets={budgets} />
-//                 </div>
-//                 <h2>Existing Budgets</h2>
-//                 <div className="budgets">
-//                   {budgets.map((budget) => (
-//                     <BudgetItem key={budget.id} budget={budget} />
-//                   ))}
-//                 </div>
-
-//                 {/* Updated Export to CSV button */}
-//                 <div className="grid-sm">
-//                   <button 
-//                     className="btn btn--dark" 
-//                     onClick={handleExportBudgets}
-//                   >
-//                     Export Budgets to CSV
-//                   </button>
-//                 </div>
-
-//                 {expenses && expenses.length > 0 && (
-//                   <div className="grid-md">
-//                     <h2>Recent Expenses</h2>
-//                     <Table
-//                       expenses={expenses
-//                         .sort((a, b) => b.createdAt - a.createdAt)
-//                         .slice(0, 8)}
-//                     />
-//                     {expenses.length > 8 && (
-//                       <>
-//                         <Link to="expenses" className="btn btn--dark">
-//                           View all expenses
-//                         </Link>
-//                         <button 
-//                           className="btn btn--dark" 
-//                           onClick={() => exportExpensesToCSV(expenses)}
-//                         >
-//                           Export Expenses to CSV
-//                         </button>
-//                       </>
-//                     )}
-//                   </div>
-//                 )}
-//               </div>
-//             ) : (
-//               <div className="grid-sm">
-//                 <p>Personal budgeting is the secret to financial freedom.</p>
-//                 <p>Create a budget to get started!</p>
-//                 <AddBudgetForm />
-//               </div>
-//             )}
-//           </div>
-//         </div>
-//       ) : (
-//         <Intro />
-//       )}
-//     </>
-//   );
-// };
-
-// const Dashboard = () => {
-//   const { userName, budgets, expenses } = useLoaderData();
-
-//   return (
-//     <>
-//       {userName ? (
-//         <div className="dashboard">
-//           <h1>
-//             Welcome back, <span className="accent">{userName}</span>
-//           </h1>
-//           <div className="grid-sm">
-//             {budgets && budgets.length > 0 ? (
-//               <div className="grid-lg">
-//                 <div className="flex-lg">
-//                   <AddBudgetForm />
-//                   <AddExpenseForm budgets={budgets} />
-//                 </div>
-//                 <h2>Existing Budgets</h2>
-//                 <div className="budgets">
-//                   {budgets.map((budget) => (
-//                     <BudgetItem key={budget.id} budget={budget} />
-//                   ))}
-//                 </div>
-
-//                 {/* Add Export to CSV button here */}
-//                 <div className="grid-sm">
-//                   <button className="btn btn--dark" onClick={exportToCsv}>
-//                     Export Budgets to CSV
-//                   </button>
-//                 </div>
-
-//                 {expenses && expenses.length > 0 && (
-//                   <div className="grid-md">
-//                     <h2>Recent Expenses</h2>
-//                     <Table
-//                       expenses={expenses
-//                         .sort((a, b) => b.createdAt - a.createdAt)
-//                         .slice(0, 8)}
-//                     />
-//                     {expenses.length > 8 && (
-//                       <Link to="expenses" className="btn btn--dark">
-//                         View all expenses
-//                       </Link>
-//                     )}
-//                   </div>
-//                 )}
-//               </div>
-//             ) : (
-//               <div className="grid-sm">
-//                 <p>Personal budgeting is the secret to financial freedom.</p>
-//                 <p>Create a budget to get started!</p>
-//                 <AddBudgetForm />
-//               </div>
-//             )}
-//           </div>
-//         </div>
-//       ) : (
-//         <Intro />
-//       )}
-//     </>
-//   );
-// };
 export default Dashboard;
