@@ -11,15 +11,27 @@ import AddExpenseForm from "../components/AddExpenseForm";
 import BudgetItem from "../components/BudgetItem";
 import Table from "../components/Table";
 
-//  helper functions
+// helper functions
 import {
   createBudget,
   createExpense,
   exportToCsv,
-  exportExpensesToCSV,
   fetchData,
   waait,
 } from "../helpers";
+
+// recharts imports
+import {
+  PieChart,
+  Pie,
+  Cell,
+  Tooltip,
+  Legend,
+  BarChart,
+  ResponsiveContainer,
+  Bar,
+} from "recharts";
+import ChartsSection from "../components/ChartsSection";
 
 // loader
 export function dashboardLoader() {
@@ -72,6 +84,16 @@ export async function dashboardAction({ request }) {
   }
 }
 
+// pie chart colors
+const COLORS = [
+  "#0088FE",
+  "#00C49F",
+  "#FFBB28",
+  "#FF8042",
+  "#A28EFF",
+  "#FF6C8F",
+];
+
 const Dashboard = () => {
   const { userName, budgets, expenses } = useLoaderData();
 
@@ -82,6 +104,21 @@ const Dashboard = () => {
       toast.warn("No budgets to export");
     }
   };
+
+  // pie chart data from expenses
+  const pieData = (expenses || []).reduce((acc, expense) => {
+    const name = expense.name;
+    const amount = parseFloat(expense.amount);
+    if (!acc[name]) {
+      acc[name] = 0;
+    }
+    acc[name] += amount;
+    return acc;
+  }, {});
+  const chartData = Object.entries(pieData).map(([name, value]) => ({
+    name,
+    value,
+  }));
 
   return (
     <>
@@ -133,19 +170,28 @@ const Dashboard = () => {
                         </Link>
                       </div>
                     )}
+
                     {/* Export Budgets to CSV button */}
-                    <div  className="grid-sm" style={{
-                          display: "flex",
-                          justifyContent: "center",
-                        }}>
+                    <div
+                      className="grid-sm"
+                      style={{
+                        display: "flex",
+                        justifyContent: "center",
+                      }}
+                    >
                       <button
                         className="btn btn--dark"
                         onClick={handleExportBudgets}
                       >
                         Export Budgets to CSV
                       </button>
-                    </div>
+                    </div>a
                   </div>
+                )}
+
+                {/* Pie Chart and Bar Chart Section */}
+                {chartData.length > 1 && (
+                  <ChartsSection chartData={chartData} />
                 )}
               </div>
             ) : (
