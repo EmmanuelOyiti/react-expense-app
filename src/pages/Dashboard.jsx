@@ -110,7 +110,7 @@ const Dashboard = () => {
                     <Table
                       expenses={expenses
                         .sort((a, b) => b.createdAt - a.createdAt)
-                        .slice(0, 8)}
+                        .slice(0, 6)}
                     />
 
                     {expenses.length > 6 && (
