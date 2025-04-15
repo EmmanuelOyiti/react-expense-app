@@ -40,7 +40,7 @@ import {
 		}}
 	  >
 		{/* Pie Chart */}
-		<div style={{ width: "100%", maxWidth: "500px" }}>
+		<div style={{ width: "100%", maxWidth: "700px", marginLeft: "auto" }}>
 		  <h2 className="h3" style={{ textAlign: "center" }}>
 			Spending Breakdown (Pie Chart)
 		  </h2>

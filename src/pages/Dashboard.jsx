@@ -185,13 +185,23 @@ const Dashboard = () => {
                       >
                         Export Budgets to CSV
                       </button>
-                    </div>a
+                    </div>
                   </div>
                 )}
 
                 {/* Pie Chart and Bar Chart Section */}
                 {chartData.length > 1 && (
-                  <ChartsSection chartData={chartData} />
+                  <div
+                    style={{
+                      display: "flex",
+                      justifyContent: "center",
+                      marginTop: "0.5rem",
+                    }}
+                  >
+                    <Link to="charts" className="btn btn--dark">
+                      View as Charts
+                    </Link>
+                  </div>
                 )}
               </div>
             ) : (
