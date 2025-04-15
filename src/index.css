@@ -65,6 +65,7 @@ body {
   -webkit-text-size-adjust: 100%;
   background-color: hsl(var(--bkg));
   color: hsl(var(--text));
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 /* typography */
@@ -321,6 +322,15 @@ nav a {
   padding: var(--space-xs);
   text-decoration: none;
   font-weight: bold;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bkg: 185 26% 9%;
+    --text: 190 60% 98%;
+    --muted: 183 8% 65%;
+    --light: 180 14% 25%;
+  }
 }
 
 @media screen and (max-width: 525px) {
@@ -600,3 +610,5 @@ table a {
 .Toastify__toast-body {
   font-size: var(--fs-300);
 }
+
+

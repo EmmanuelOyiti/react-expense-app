@@ -20,19 +20,6 @@ import {
   waait,
 } from "../helpers";
 
-// recharts imports
-import {
-  PieChart,
-  Pie,
-  Cell,
-  Tooltip,
-  Legend,
-  BarChart,
-  ResponsiveContainer,
-  Bar,
-} from "recharts";
-import ChartsSection from "../components/ChartsSection";
-
 // loader
 export function dashboardLoader() {
   const userName = fetchData("userName");
