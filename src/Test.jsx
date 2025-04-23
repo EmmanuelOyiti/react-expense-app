@@ -14,7 +14,7 @@ const Test = () => {
         <input
           type="checkbox"
           checked={darkMode}
-          onChange={(e) => setDarkMode(e.target.checked)}
+          onChange={(e) => setDarkMode(e.target.checked)}       
         />
         <span className="slider round"></span>
       </label>
