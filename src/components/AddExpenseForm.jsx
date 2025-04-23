@@ -39,7 +39,7 @@ const AddExpenseForm = ({ budgets }) => {
         <div className="expense-inputs">
           <div className="grid-xs">
             <label htmlFor="newExpense">Expense Name</label>
-            <input
+            <input 
               type="text"
               name="newExpense"
               id="newExpense"
@@ -50,7 +50,7 @@ const AddExpenseForm = ({ budgets }) => {
           </div>
           <div className="grid-xs">
             <label htmlFor="newExpenseAmount">Amount</label>
-            <input
+            <input style={{ color: "white" }}
               type="number"
               step="0.01"
               inputMode="decimal"
